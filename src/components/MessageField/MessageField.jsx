@@ -1,4 +1,4 @@
-import './MessageList.scss';
+import './MessageField.scss';
     
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -20,7 +20,7 @@ export default class MessageList extends Component {
     render(){
         const {messages} = this.props;
         return(
-            <div className="messagelist">
+            <div className="messagefield">
                 {messages.map((comment, idx)=> <Message key={idx} {...comment}/>)}
             </div>
         )
