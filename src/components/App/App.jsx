@@ -2,48 +2,61 @@ import './App.scss';
 
 import React, { Component, Fragment } from 'react';
 
-import MessageField from '../MessageField/MessageField'
-import MessageForm from '../MessageForm/MessageForm'
+import Header from '../Header/Header'
+import ChatList from '../ChatList/ChatList'
+import MessageList from '../MessageList/MessageList'
+import SendMessage from '../SendMessage/SendMessage'
 
 export default class App extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             messages: [],
+            chats: [
+                { name: 'John', id: 1 },
+                { name: 'Piotr', id: 2 },
+                { name: 'Vasja', id: 3 },
+            ],
             interval: null,
             newLogin: false,
+            user: { login: '', id: 0 }
         }
     }
 
-    isNewLogin(author){
-        const res = this.state.messages.findIndex((item)=>item.author = author);
-        if(res === -1){
+    isNewLogin(author) {
+        const res = this.state.messages.findIndex((item) => item.author === author);
+        if (res === -1) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     handleSubmit = (comment) => {
-        const {messages} = this.state;
+        if (!comment.author && !this.state.user.id) {
+            return;
+        }
+        const { messages } = this.state;
+        const isNewLogin = this.isNewLogin(comment.author)
         this.setState(
             {
-                messages: [...messages, comment],
-                newLogin: this.isNewLogin(comment.author),
+                messages: [comment, ...messages],
+                newLogin: isNewLogin,
+                user: isNewLogin ? { login: comment.author, id: 1 } : this.state.user,
             }
         )
     }
 
-    componentDidUpdate(){
+    componentDidUpdate() {
         console.log('Updated');
-        if(this.state.newLogin){
-            const {messages} = this.state;
+        if (this.state.newLogin) {
+            const { messages } = this.state;
             const interval = setInterval(() => {
                 clearInterval(this.state.interval);
                 this.setState(
                     {
-                        messages: [...messages, {author: 'Robot', message: `Hi, ${messages[messages.length-1].author}! Welcome to the chat!`}],
+                        messages: [{ author: 'Robot', message: `Hi, ${messages[messages.length - 1].author}! Welcome to the chat!` }, ...messages],
                     }
                 )
             }, 300);
@@ -57,12 +70,16 @@ export default class App extends Component {
     }
 
     render() {
-        const {messages} = this.state;
+        const { chats, messages } = this.state;
         return (
-            <Fragment>
-                <MessageForm onSubmit={this.handleSubmit}/>
-                <MessageField messages={messages}/>
-            </Fragment>
+            <div className="app">
+                <Header />
+                <div className="chat-controls">
+                    <ChatList chats={chats} />
+                    <SendMessage onSubmit={this.handleSubmit} />
+                </div>
+                <MessageList messages={messages} user={this.state.user} />
+            </div>
         )
     }
 }
