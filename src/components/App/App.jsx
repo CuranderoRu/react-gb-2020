@@ -1,7 +1,7 @@
 import './App.scss';
 
 import React, { Component, Fragment } from 'react';
-import { BrouserRouter, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import Header from '../Header/Header'
 import ChatList from '../ChatList/ChatList'
@@ -15,6 +15,7 @@ export default class App extends Component {
         this.state = {
             messages: [],
             chats: [
+                { name: 'Robot', id: 0 },
                 { name: 'John', id: 1 },
                 { name: 'Piotr', id: 2 },
                 { name: 'Vasja', id: 3 },
@@ -73,16 +74,20 @@ export default class App extends Component {
     render() {
         const { chats, messages } = this.state;
         return (
-            <BrouserRouter>
+            <Router>
                 <div className="app">
                     <Header />
                     <div className="chat-controls">
                         <ChatList chats={chats} />
                         <SendMessage onSubmit={this.handleSubmit} />
                     </div>
-                    <MessageList messages={messages} user={this.state.user} />
+                    <Switch>
+                        <Route path ="/chat/:chatId">
+                            <MessageList messages={messages} user={this.state.user} />
+                        </Route>
+                    </Switch>
                 </div>
-            </BrouserRouter>
+            </Router>
         )
     }
 }

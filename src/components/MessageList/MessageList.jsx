@@ -15,6 +15,7 @@ export default class MessageList extends Component {
             login: PropTypes.string.isRequired,
             id: PropTypes.number.isRequired,
         }).isRequired,
+        match: PropTypes.object,
     }
 
     static defaultProps = {
@@ -26,7 +27,8 @@ export default class MessageList extends Component {
     }
 
     render(){
-        const {messages, user} = this.props;
+        const {messages, user, match} = this.props;
+        console.log(match);
         return(
             <div className="messages">
                 {messages.map((comment, idx)=> 
