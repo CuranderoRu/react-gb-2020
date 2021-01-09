@@ -13,30 +13,30 @@ export default class ChatList extends Component {
     chats: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
-        id: PropTypes.number.isRequired,
+        id: PropTypes.string.isRequired,
       })
     ),
+    chatId: PropTypes.string
   };
 
-  static defaultProps = {};
+  static defaultProps = {chatId: '0'};
 
   constructor(props) {
     super(props);
     this.state = {
-      selectedIndex: 0,
-    };
+      chatId: props.chatId,
+    }
   }
 
-  handleListItemClick = (event, index) => {
+  handleListItemClick = (event, chatId) => {
     this.setState({
-      selectedIndex: index,
+      chatId,
     });
   };
 
   render() {
-    const { selectedIndex } = this.state;
     const { chats } = this.props;
-
+    const { chatId } = this.state;
     return (
       <div className="chat-wrapper">
         <List component="nav" aria-label="main mailbox folders">
@@ -45,8 +45,8 @@ export default class ChatList extends Component {
               <ListItem
                 key={`item_${idx}`}
                 button
-                selected={selectedIndex === idx}
-                onClick={(event) => this.handleListItemClick(event, idx)}
+                selected={item.id === chatId}
+                onClick={(event) => this.handleListItemClick(event, item.id)}
               >
                 <ListItemText primary={item.name} />
               </ListItem>

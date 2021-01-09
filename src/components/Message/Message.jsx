@@ -15,15 +15,14 @@ export default class Message extends Component {
 
     constructor(props){
         super(props);
-        console.log('Message constructed');
     }
 
     render(){
         const {author, message, user} = this.props;
         return(
-            <div style={{...styles.message, alignSelf: user.login === author ? 'flex-start' : 'flex-end'}}>
-                <h2>{message}</h2>
-                <p>{author}</p>
+            <div style={{...styles.message, alignSelf: author === 'me' ? 'flex-start' : 'flex-end'}}>
+                <p style={{...styles.messageText}}>{message}</p>
+                <p>{author === 'me' ? user.nick : author}</p>
             </div>
         )
     }

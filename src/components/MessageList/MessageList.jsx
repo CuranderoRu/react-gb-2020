@@ -1,40 +1,51 @@
 import './MessageList.scss';
-    
-import React, { Component } from 'react';
+
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import Message from '../Message/Message'
-    
+import SendMessage from '../SendMessage/SendMessage'
+
 export default class MessageList extends Component {
     static propTypes = {
-        messages: PropTypes.arrayOf(PropTypes.shape({
-            author: PropTypes.string.isRequired,
-            message: PropTypes.string.isRequired
-        })),
+        messages: PropTypes.object,
         user: PropTypes.shape({
             login: PropTypes.string.isRequired,
             id: PropTypes.number.isRequired,
-        }).isRequired,
-        match: PropTypes.object,
+        }),
+        chatId: PropTypes.string,
+        onSubmit: PropTypes.func.isRequired,
+        onDisplay: PropTypes.func.isRequired,
     }
 
     static defaultProps = {
-        messages: [],
+        messages: {},
+        chatId: null,
     }
-    
-    constructor(props){
+
+    constructor(props) {
         super(props);
     }
 
-    render(){
-        const {messages, user, match} = this.props;
-        console.log(match);
-        return(
-            <div className="messages">
-                {messages.map((comment, idx)=> 
-                    <Message key={idx} {...comment} user={user}/>
-                )}
-            </div>
+    componentDidMount(){
+        this.props.onDisplay(this.props.chatId);
+    }
+
+    render() {
+        const { messages, user, chatId, onSubmit } = this.props;
+        if (user === null || typeof messages[chatId] === 'undefined') {
+            return null;
+        }
+        return (
+            <Fragment>
+                <SendMessage chatId={chatId} onSubmit={onSubmit} user={user} />
+                <div className="messages">
+                    {
+                        messages[chatId].map((comment, idx) =>
+                            <Message key={idx} {...comment} user={user} />
+                        )}
+                </div>
+            </Fragment>
         )
     }
 }
