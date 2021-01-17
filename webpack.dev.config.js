@@ -13,5 +13,8 @@ module.exports = merge(base, {
         port: 8080,
         host: 'localhost',
         hot: true,
+        historyApiFallback: {
+            index: 'index.html'
+        }
     }
 });
