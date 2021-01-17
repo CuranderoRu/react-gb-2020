@@ -6,15 +6,19 @@ import PropTypes from 'prop-types';
 import Message from '../Message/Message'
 import SendMessage from '../SendMessage/SendMessage'
 
-export default class MessageList extends Component {
+import { connect } from 'react-redux';
+import { addMessageItem } from 'actions/messages';
+
+
+class MessageList extends Component {
     static propTypes = {
         messages: PropTypes.object,
         user: PropTypes.shape({
-            login: PropTypes.string.isRequired,
-            id: PropTypes.number.isRequired,
+            login: PropTypes.string,
+            nick: PropTypes.string,
+            id: PropTypes.number,
         }),
         chatId: PropTypes.string,
-        onSubmit: PropTypes.func.isRequired,
         onDisplay: PropTypes.func.isRequired,
     }
 
@@ -31,14 +35,26 @@ export default class MessageList extends Component {
         this.props.onDisplay(this.props.chatId);
     }
 
+    handleSubmit = (comment, chatId) => {
+        this.props.addMessageItem({ comment, chatId });
+
+        // const { messages } = this.state;
+        // messages[chatId] = [comment, ...messages[chatId]];
+        // this.setState(
+        //     {
+        //         messages,
+        //     }
+        // )
+    }
+
     render() {
-        const { messages, user, chatId, onSubmit } = this.props;
-        if (user === null || typeof messages[chatId] === 'undefined') {
+        const { messages, user, chatId } = this.props;
+        if (user.login === null || typeof messages[chatId] === 'undefined') {
             return null;
         }
         return (
             <Fragment>
-                <SendMessage chatId={chatId} onSubmit={onSubmit} user={user} />
+                <SendMessage chatId={chatId} onSubmit={this.handleSubmit} user={user} />
                 <div className="messages">
                     {
                         messages[chatId].map((comment, idx) =>
@@ -49,3 +65,18 @@ export default class MessageList extends Component {
         )
     }
 }
+
+const mapStateToProps = state => (
+    {
+        user: state.user.user,
+        messages: state.messages.entities,
+    }
+);
+
+const mapDispatchToProps = dispatch => (
+    {
+        addMessageItem: (item) => addMessageItem(dispatch, item),
+    }
+)
+
+export default connect(mapStateToProps, mapDispatchToProps)(MessageList)

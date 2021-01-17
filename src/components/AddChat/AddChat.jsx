@@ -5,18 +5,10 @@ import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+import { connect } from 'react-redux';
 
-export default class AddChat extends Component {
-    static propTypes = {
-        user: PropTypes.shape({
-            login: PropTypes.string,
-            id: PropTypes.number,
-        }),
-        onSubmit: PropTypes.func.isRequired,
-    }
 
-    static defaultProps = {user: null}
-
+class AddChat extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -49,7 +41,7 @@ export default class AddChat extends Component {
 
     render() {
         const { user } = this.props;
-        if(user===null){
+        if(user.login===null){
             return null;
         }
         return (
@@ -67,3 +59,12 @@ export default class AddChat extends Component {
         )
     }
 }
+
+const mapStateToProps = state => (
+    {
+        user: state.user.user,
+    }
+);
+
+
+export default connect(mapStateToProps)(AddChat)

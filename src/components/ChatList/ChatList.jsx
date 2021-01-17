@@ -4,18 +4,14 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
+import { connect } from 'react-redux';
+
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 
-export default class ChatList extends Component {
+class ChatList extends Component {
   static propTypes = {
-    chats: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        id: PropTypes.string.isRequired,
-      })
-    ),
     chatId: PropTypes.string
   };
 
@@ -57,3 +53,11 @@ export default class ChatList extends Component {
     );
   }
 }
+
+const mapStateToProps = state => (
+  {
+    chats: state.chats.entities,
+  }
+);
+
+export default connect(mapStateToProps)(ChatList)
