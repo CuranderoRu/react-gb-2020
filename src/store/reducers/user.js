@@ -7,6 +7,9 @@ import {
     addStart,
     addComplete,
     addFail,
+    updateStart,
+    updateComplete,
+    updateFail,
     deleteComplete,
     deleteFail
 } from 'actions/user'
@@ -32,13 +35,12 @@ export default handleActions({
         console.log('[UserReducer]: loginComplete', action.payload);
         return {
             loading: false,
-            entities: action.payload,
+            user: action.payload,
         }
     },
     [loginFail]: (state, action) => {
         return {
-            loading: false,
-            entities: [],
+            ...initialState
         }
     },
     [addStart]: (state) => {
@@ -55,6 +57,27 @@ export default handleActions({
         }
     },
     [addFail]: (state, action) => {
+        return {
+            ...state,
+        }
+    },
+    [updateStart]: (state) => {
+        return {
+            ...state,
+            loading: true,
+        }
+    },
+    [updateComplete]: (state, action) => {
+        return {
+            ...state,
+            user: {
+                id: state.user.id,
+                nick: action.payload.nick,
+                login: state.user.login,
+            },
+        }
+    },
+    [updateFail]: (state, action) => {
         return {
             ...state,
         }

@@ -15,13 +15,17 @@ export const MESSAGES_ADD_COMPLETE = '[MESSAGES] Add Complete';
 export const MESSAGES_ADD_FAIL = '[MESSAGES] Add Fail';
 export const MESSAGES_DELETE_COMPLETE = '[MESSAGES] Delete Complete';
 export const MESSAGES_DELETE_FAIL = '[MESSAGES] Delete Fail';
+export const MESSAGES_INIT_COMPLETE = '[MESSAGES] Init Complete';
 
 export const USER_LOGIN_START = '[USER] Login Start';
 export const USER_LOGIN_COMPLETE = '[USER] Login Complete';
 export const USER_LOGIN_FAIL = '[USER] Login Fail';
-export const USER_ADD_START = '[USER] Login Complete';
-export const USER_ADD_COMPLETE = '[USER] Login Complete';
-export const USER_ADD_FAIL = '[USER] Login Fail';
+export const USER_ADD_START = '[USER] Add Start';
+export const USER_ADD_COMPLETE = '[USER] Add Complete';
+export const USER_ADD_FAIL = '[USER] Add Fail';
+export const USER_UPDATE_START = '[USER] Update Start';
+export const USER_UPDATE_COMPLETE = '[USER] Update Complete';
+export const USER_UPDATE_FAIL = '[USER] Update Fail';
 export const USER_DELETE_COMPLETE = '[USER] Delete Complete';
 export const USER_DELETE_FAIL = '[USER] Delete Fail';
 

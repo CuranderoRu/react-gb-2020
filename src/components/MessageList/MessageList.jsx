@@ -12,7 +12,7 @@ import { addMessageItem } from 'actions/messages';
 
 class MessageList extends Component {
     static propTypes = {
-        messages: PropTypes.object,
+        messages: PropTypes.object.isRequired,
         user: PropTypes.shape({
             login: PropTypes.string,
             nick: PropTypes.string,
@@ -23,7 +23,6 @@ class MessageList extends Component {
     }
 
     static defaultProps = {
-        messages: {},
         chatId: null,
     }
 
@@ -37,14 +36,6 @@ class MessageList extends Component {
 
     handleSubmit = (comment, chatId) => {
         this.props.addMessageItem({ comment, chatId });
-
-        // const { messages } = this.state;
-        // messages[chatId] = [comment, ...messages[chatId]];
-        // this.setState(
-        //     {
-        //         messages,
-        //     }
-        // )
     }
 
     render() {

@@ -43,6 +43,8 @@ export default handleActions({
         let item = entities.find(item => item.id === payload.id);
         if (!item) { //add new
             entities.unshift(payload);
+        } else {
+            console.log('[ChatReducer]: addComplete: chat is already exists', payload);
         }
         console.log('[ChatReducer]: addComplete', entities);
         return {

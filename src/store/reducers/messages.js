@@ -7,7 +7,8 @@ import {
     addComplete,
     addFail,
     deleteComplete,
-    deleteFail
+    deleteFail,
+    initChat
 } from 'actions/messages'
 
 const initialState = {
@@ -80,4 +81,16 @@ export default handleActions({
             ...state,
         }
     },
+    [initChat]: (state, action) => {
+        let entities = {};
+        Object.assign(entities, state.entities);
+        const { payload } = action;
+        entities[payload.id] = [];
+        console.log('[MessagesReducer]: initChat', entities);
+        return {
+            ...state,
+            entities
+        }
+    },
+
 }, initialState)

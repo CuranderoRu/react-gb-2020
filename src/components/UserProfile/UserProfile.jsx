@@ -5,14 +5,17 @@ import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+import { connect } from 'react-redux';
+import { updateUser } from 'actions/user';
 
-export default class UserProfile extends Component {
+class UserProfile extends Component {
     static propTypes = {
         user: PropTypes.shape({
             login: PropTypes.string,
+            nick: PropTypes.string,
             id: PropTypes.number,
         }),
-        onSubmit: PropTypes.func.isRequired,
+        updateUser: PropTypes.func.isRequired,
     }
 
     static defaultProps = {}
@@ -20,14 +23,13 @@ export default class UserProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            login: props.user ? props.user.login : null,
-            nick: props.user ? props.user.nick : null,
-            id: props.user ? props.user.id : null,
-        };
+            login: props.user.login,
+            nick: props.user.nick,
+        }
     }
 
-    handleChange = (event) => {
-        switch (event.target.id) {
+    handleChange = (event, id) => {
+        switch (id) {
             case 'profile-login':
                 this.setState({
                     login: event.target.value,
@@ -42,7 +44,7 @@ export default class UserProfile extends Component {
     }
 
     handleSubmit = () => {
-        this.props.onSubmit({
+        this.props.updateUser({
             login: this.state.login,
             nick: this.state.nick,
             id: this.props.user.id,
@@ -51,16 +53,16 @@ export default class UserProfile extends Component {
 
     render() {
         const { user } = this.props;
-        if(user===null){
+        if(user.login===null){
             return null;
         }
         return (
             <form noValidate autoComplete="off" className="userprofile">
                 <div className="userprofile-fieldcontainer">
-                    <TextField required id="profile-login" label="Login" defaultValue={user.login} fullWidth = {true} onChange={this.handleChange} />
+                    <TextField required label="Login" disabled defaultValue={user.login} fullWidth = {true} onChange={(e) => this.handleChange(e, "profile-login")} />
                 </div>
                 <div className="userprofile-fieldcontainer">
-                    <TextField id="profile-nick" label="Nickname" defaultValue={user.nick} fullWidth = {true} onChange={this.handleChange} />
+                    <TextField label="Nickname" defaultValue={user.nick} fullWidth = {true} onChange={(e) => this.handleChange(e, "profile-nick")} />
                 </div>
                 <div className="userprofile-fieldcontainer">
                     <Button onClick={this.handleSubmit}>Сохранить</Button>
@@ -69,3 +71,17 @@ export default class UserProfile extends Component {
         )
     }
 }
+
+const mapStateToProps = state => (
+    {
+        user: state.user.user,
+    }
+);
+
+const mapDispatchToProps = dispatch => (
+    {
+        updateUser: (data) => updateUser(dispatch, data),
+    }
+)
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfile)

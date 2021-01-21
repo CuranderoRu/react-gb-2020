@@ -8,7 +8,8 @@ import {
     MESSAGES_ADD_COMPLETE,
     MESSAGES_ADD_FAIL,
     MESSAGES_DELETE_COMPLETE,
-    MESSAGES_DELETE_FAIL
+    MESSAGES_DELETE_FAIL,
+    MESSAGES_INIT_COMPLETE
 } from '../../constants'
 
 export const loadMessages = (dispatch) => {
@@ -68,10 +69,15 @@ export const deleteMessageItem = (dispatch, item) => {
     dispatch(deleteComplete(item));
 };
 
+export const initNewMessageArray = (dispatch, item) => {
+    dispatch(initChat(item));
+}
+
 export const loadStart = createAction(MESSAGES_LOAD_START);
 export const loadComplete = createAction(MESSAGES_LOAD_COMPLETE);
 export const loadFail = createAction(MESSAGES_LOAD_FAIL);
 export const addComplete = createAction(MESSAGES_ADD_COMPLETE);
+export const initChat = createAction(MESSAGES_INIT_COMPLETE);
 export const addFail = createAction(MESSAGES_ADD_FAIL);
 export const deleteComplete = createAction(MESSAGES_DELETE_COMPLETE);
 export const deleteFail = createAction(MESSAGES_DELETE_FAIL);

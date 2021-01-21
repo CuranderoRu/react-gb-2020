@@ -6,9 +6,21 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 import { connect } from 'react-redux';
+import { addChatsItem } from 'actions/chats';
+import { initNewMessageArray } from 'actions/messages';
 
 
 class AddChat extends Component {
+    static propTypes = {
+        messages: PropTypes.object,
+        user: PropTypes.shape({
+            login: PropTypes.string,
+            nick: PropTypes.string,
+            id: PropTypes.number,
+        }).isRequired,
+        addChatsItem: PropTypes.func.isRequired,
+    }
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -17,8 +29,8 @@ class AddChat extends Component {
         };
     }
 
-    handleChange = (event) => {
-        switch (event.target.id) {
+    handleChange = (event, id) => {
+        switch (id) {
             case 'addchat-name':
                 this.setState({
                     name: event.target.value,
@@ -33,8 +45,11 @@ class AddChat extends Component {
     }
 
     handleSubmit = () => {
-        this.props.onSubmit({
+        this.props.addChatsItem({
             name: this.state.name,
+            id: this.state.id,
+        });
+        this.props.initNewMessageArray({
             id: this.state.id,
         });
     }
@@ -47,10 +62,10 @@ class AddChat extends Component {
         return (
             <form noValidate autoComplete="off" className="addchat">
                 <div className="addchat-fieldcontainer">
-                    <TextField required id="addchat-name" label="Имя" fullWidth = {true} onChange={this.handleChange} />
+                    <TextField required label="Имя" fullWidth = {true} onChange={(e)=>this.handleChange(e, "addchat-name")} />
                 </div>
                 <div className="addchat-fieldcontainer">
-                    <TextField id="addchat-id" label="id чата" fullWidth = {true} onChange={this.handleChange} />
+                    <TextField label="id чата" fullWidth = {true} onChange={(e)=>this.handleChange(e, "addchat-id")} />
                 </div>
                 <div className="addchat-fieldcontainer">
                     <Button onClick={this.handleSubmit}>Добавить</Button>
@@ -66,5 +81,11 @@ const mapStateToProps = state => (
     }
 );
 
+const mapDispatchToProps = dispatch => (
+    {
+        addChatsItem: (data) => addChatsItem(dispatch, data),
+        initNewMessageArray: (data) => initNewMessageArray(dispatch, data),
+    }
+)
 
-export default connect(mapStateToProps)(AddChat)
+export default connect(mapStateToProps, mapDispatchToProps)(AddChat)
