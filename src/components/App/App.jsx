@@ -1,7 +1,9 @@
 import './App.scss';
 
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { ConnectedRouter } from 'connected-react-router';
+import { history } from '../../store/store';
 
 import Header from '../Header/Header'
 import ChatList from '../ChatList/ChatList'
@@ -54,14 +56,6 @@ class App extends Component {
         )
     }
 
-    handleUserUpdate = (user) => {
-        // this.setState(
-        //     {
-        //         user,
-        //     }
-        // )
-    }
-
     handleAddChat = (item) => {
         let { chats, messages } = this.state;
         messages[item.id] = [];
@@ -109,7 +103,7 @@ class App extends Component {
         const { chatId } = this.state;
         const { user } = this.props;
         return (
-            <Router>
+            <ConnectedRouter history={history}>
                 <div className="app">
                     <Header />
                     <div className="chat-controls">
@@ -122,7 +116,7 @@ class App extends Component {
                                     return (<MessageList chatId={chatId} onDisplay={this.handleListDisplayed} />);
                                 }} />
                                 <Route exact path="/profile">
-                                    <UserProfile user={user} onSubmit={this.handleUserUpdate} />
+                                    <UserProfile user={user} />
                                 </Route>
                                 <Route exact path="/addchat">
                                     <AddChat user={user} onSubmit={this.handleAddChat} />
@@ -131,7 +125,7 @@ class App extends Component {
                         </div>
                     </div>
                 </div>
-            </Router>
+            </ConnectedRouter>
         )
     }
 }

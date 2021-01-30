@@ -12,7 +12,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 
 class ChatList extends Component {
   static propTypes = {
-    chatId: PropTypes.string
+    chatId: PropTypes.string,
+    push: PropTypes.func.isRequired,
   };
 
   static defaultProps = {chatId: '0'};
@@ -42,7 +43,7 @@ class ChatList extends Component {
                 key={`item_${idx}`}
                 button
                 selected={item.id === chatId}
-                onClick={(event) => this.handleListItemClick(event, item.id)}
+                onClick={(event) => this.handleListItemClick(event, item.id, `/chat/${item.id}`)}
               >
                 <ListItemText primary={item.name} />
               </ListItem>
@@ -60,4 +61,11 @@ const mapStateToProps = state => (
   }
 );
 
-export default connect(mapStateToProps)(ChatList)
+
+const mapDispatchToProps = dispatch => (
+    {
+        push: () => dispatch(push),
+    }
+)
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatList)

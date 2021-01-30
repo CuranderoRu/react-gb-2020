@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom';
 import { MuiThemeProvider } from 'material-ui/styles';
 
 import { Provider } from 'react-redux';
-import store from './store/store'
+import initStore from './store/store'
 
 
 import App from './components/App/App';
 
 const Root = () => {
   return (
-    <Provider store={store}>
+    <Provider store={initStore()}>
       <MuiThemeProvider>
         <App />
       </MuiThemeProvider>
