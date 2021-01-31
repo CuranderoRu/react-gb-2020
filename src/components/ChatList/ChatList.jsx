@@ -3,6 +3,8 @@ import "./ChatList.scss";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { push } from 'connected-react-router';
+import { bindActionCreators } from "redux";
 
 import { connect } from 'react-redux';
 
@@ -14,6 +16,7 @@ class ChatList extends Component {
   static propTypes = {
     chatId: PropTypes.string,
     push: PropTypes.func.isRequired,
+    user: PropTypes.object,
   };
 
   static defaultProps = {chatId: '0'};
@@ -25,20 +28,23 @@ class ChatList extends Component {
     }
   }
 
-  handleListItemClick = (event, chatId) => {
+  handleListItemClick = (event, chatId, link) => {
     this.setState({
       chatId,
     });
+    this.props.push(link);
   };
 
   render() {
-    const { chats } = this.props;
+    const { chats, user } = this.props;
+    if(!user.id){
+      return null;
+    }
     const { chatId } = this.state;
     return (
       <div className="chat-wrapper">
         <List component="nav" aria-label="main mailbox folders">
           {chats.map((item, idx) => (
-            <Link key={`link_${idx}`} to={`/chat/${item.id}`}>
               <ListItem
                 key={`item_${idx}`}
                 button
@@ -47,7 +53,6 @@ class ChatList extends Component {
               >
                 <ListItemText primary={item.name} />
               </ListItem>
-            </Link>
           ))}
         </List>
       </div>
@@ -58,14 +63,11 @@ class ChatList extends Component {
 const mapStateToProps = state => (
   {
     chats: state.chats.entities,
+    user: state.user.user,
   }
 );
 
 
-const mapDispatchToProps = dispatch => (
-    {
-        push: () => dispatch(push),
-    }
-)
+const mapDispatchToProps = dispatch => bindActionCreators({ push }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatList)
