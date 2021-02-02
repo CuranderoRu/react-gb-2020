@@ -7,10 +7,14 @@ module.exports = merge(base, {
     output: {
         publicPath: '/'
     },
+    devtool: 'inline-source-map',
     devServer: {
         contentBase: path.resolve(__dirname, 'dist'),
         port: 8080,
         host: 'localhost',
         hot: true,
+        historyApiFallback: {
+            index: 'index.html'
+        }
     }
 });

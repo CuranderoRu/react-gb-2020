@@ -11,7 +11,12 @@ module.exports = {
         filename: 'bundle.js',
     },
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.jsx'],
+        alias: {
+            components: path.resolve(__dirname, 'src', 'components'),
+            actions: path.resolve(__dirname, 'src', 'store', 'actions'),
+            reducers: path.resolve(__dirname, 'src', 'store', 'reducers'),
+        },
     },
     module: {
         rules: [{
