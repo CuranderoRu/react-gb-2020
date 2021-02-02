@@ -29,9 +29,8 @@ export const USER_UPDATE_FAIL = '[USER] Update Fail';
 export const USER_DELETE_COMPLETE = '[USER] Delete Complete';
 export const USER_DELETE_FAIL = '[USER] Delete Fail';
 
-
 // API ENDPOINTS
-export const APP_URL = 'http://localhost:3001';
+export const APP_URL = 'http://localhost:8080';
 export const MESSAGES_API = '/api/messages';
 export const CHATS_API = '/api/chats';
-export const USER_API = '/api/user';
+export const USER_API = '/api/users';
