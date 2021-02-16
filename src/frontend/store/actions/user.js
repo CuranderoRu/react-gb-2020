@@ -15,10 +15,26 @@ import {
     USER_DELETE_FAIL
 } from '../../constants'
 
-import { loadMessages } from 'actions/messages';
-import { loadChats } from 'actions/chats';
-
-
+// export const userLogin1 = (creds) => {
+//     return ({
+//         [RSAA]: {
+//             endpoint: `${APP_URL}${USER_API}.json`,
+//             method: 'GET',
+//             types: [
+//                 USER_LOGIN_START,
+//                 {
+//                     type: USER_LOGIN_COMPLETE,
+//                     payload: (action, state, res) => getJSON(res).then(
+//                         json => {
+//                             return (json)
+//                         },
+//                     ),
+//                 },
+//                 USER_LOGIN_FAIL,
+//             ],
+//         },
+//     })
+// };
 
 export const userLogin = (dispatch, item) => {
     dispatch(loginStart(item));

@@ -1,0 +1,20 @@
+{
+    "1": [{ "author": "John", "message": "id_1_test_1" },
+        { "author": "me", "message": "id_1_test_2" },
+        { "author": "John", "message": "id_1_test_3" },
+        { "author": "me", "message": "id_1_test_4" },
+        { "author": "John", "message": "id_1_test_5" }
+    ],
+    "2": [{ "author": "Piotr", "message": "id_2_test_1" },
+        { "author": "me", "message": "id_2_test_2" },
+        { "author": "Piotr", "message": "id_2_test_3" },
+        { "author": "me", "message": "id_2_test_4" },
+        { "author": "Piotr", "message": "id_2_test_5" }
+    ],
+    "3": [{ "author": "Vasja", "message": "id_3_test_1" },
+        { "author": "me", "message": "id_3_test_2" },
+        { "author": "Vasja", "message": "id_3_test_3" },
+        { "author": "me", "message": "id_3_test_4" },
+        { "author": "Vasja", "message": "id_3_test_5" }
+    ]
+}
