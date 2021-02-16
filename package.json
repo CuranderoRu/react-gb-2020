@@ -12,6 +12,8 @@
         "@material-ui/icons": "^4.11.2",
         "autoprefixer": "^10.0.4",
         "babel-loader": "^8.2.2",
+        "beeper": "^2.1.0",
+        "colors": "^1.4.0",
         "connected-react-router": "^6.8.0",
         "css-loader": "^5.0.1",
         "history": "^4.10.1",
