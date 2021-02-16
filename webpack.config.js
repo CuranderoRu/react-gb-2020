@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     entry: {
-        main: path.resolve(__dirname, 'src', 'index.jsx')
+        main: path.resolve(__dirname, 'src', 'frontend', 'index.jsx')
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -13,9 +13,9 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx'],
         alias: {
-            components: path.resolve(__dirname, 'src', 'components'),
-            actions: path.resolve(__dirname, 'src', 'store', 'actions'),
-            reducers: path.resolve(__dirname, 'src', 'store', 'reducers'),
+            components: path.resolve(__dirname, 'src', 'frontend', 'components'),
+            actions: path.resolve(__dirname, 'src', 'frontend', 'store', 'actions'),
+            reducers: path.resolve(__dirname, 'src', 'frontend', 'store', 'reducers'),
         },
     },
     module: {
@@ -37,7 +37,7 @@ module.exports = {
             filename: 'style.css',
         }),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, 'src', 'index.html'),
+            template: path.resolve(__dirname, 'src', 'frontend', 'index.html'),
             filename: 'index.html',
         })
     ]
