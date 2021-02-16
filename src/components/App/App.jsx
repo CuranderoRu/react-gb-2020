@@ -140,7 +140,7 @@ const mapDispatchToProps = dispatch => (
     {
         loadChats: () => loadChats(dispatch),
         userLogin: (item) => userLogin(dispatch, item),
-        loadMessages: () => loadMessages(dispatch),
+        loadMessages: () => dispatch(loadMessages()),
         addMessageItem: (item) => addMessageItem(dispatch, item),
     }
 )
