@@ -20,6 +20,7 @@
         "html-webpack-plugin": "^4.5.0",
         "material-ui": "^0.20.2",
         "mini-css-extract-plugin": "^1.3.2",
+        "moment": "^2.29.1",
         "nodemon": "^2.0.7",
         "react": "^17.0.1",
         "react-dom": "^17.0.1",
@@ -52,5 +53,12 @@
     "bugs": {
         "url": "https://github.com/CuranderoRu/react-gb-2020/issues"
     },
-    "homepage": "https://github.com/CuranderoRu/react-gb-2020#readme"
+    "homepage": "https://github.com/CuranderoRu/react-gb-2020#readme",
+    "devDependencies": {
+        "eslint": "^7.20.0",
+        "eslint-config-prettier": "^7.2.0",
+        "eslint-loader": "^4.0.2",
+        "eslint-plugin-prettier": "^3.3.1",
+        "eslint-plugin-react": "^7.22.0"
+    }
 }
