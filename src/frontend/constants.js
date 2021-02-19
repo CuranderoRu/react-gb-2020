@@ -8,6 +8,9 @@ export const CHATS_ADD_FAIL = '[CHATS] Add Fail';
 export const CHATS_DELETE_COMPLETE = '[CHATS] Delete Complete';
 export const CHATS_DELETE_FAIL = '[CHATS] Delete Fail';
 
+export const MENU_LOAD_COMPLETE = '[MENU] Load Complete';
+export const MENU_DELETE_COMPLETE = '[MENU] Delete Complete';
+
 export const MESSAGES_LOAD_START = '[MESSAGES] Load Start';
 export const MESSAGES_LOAD_COMPLETE = '[MESSAGES] Load Complete';
 export const MESSAGES_LOAD_FAIL = '[MESSAGES] Load Fail';

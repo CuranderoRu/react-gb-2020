@@ -1,2 +1,4 @@
 node_modules
 static
+cli/logs
+src/backend/.env

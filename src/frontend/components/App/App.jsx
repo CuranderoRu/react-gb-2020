@@ -7,6 +7,8 @@ import { history } from '../../store/store';
 
 import Header from '../Header/Header'
 import ChatList from '../ChatList/ChatList'
+import Menu from '../Menu/Menu'
+import Lesson3 from '../Lesson3/Lesson3'
 import MessageList from '../MessageList/MessageList'
 import LoginForm from '../LoginForm/LoginForm';
 import UserProfile from '../UserProfile/UserProfile';
@@ -107,10 +109,16 @@ class App extends Component {
                 <div className="app">
                     <Header />
                     <div className="chat-controls">
-                        <ChatList chatId={chatId} />
+                        <Menu />
+                        <ChatList chatId={chatId}/>
                         <div className="chat-fields">
-                            <LoginForm onSubmit={this.handleLogin} />
                             <Switch>
+                                <Route exact path="/login">
+                                    <LoginForm onSubmit={this.handleLogin} />
+                                </Route>
+                                <Route exact path="/lesson3">
+                                    <Lesson3 />
+                                </Route>
                                 <Route path="/chat/:chatId" render={obj => {
                                     const chatId = obj.match.params.chatId;
                                     return (<MessageList chatId={chatId} onDisplay={this.handleListDisplayed} />);
